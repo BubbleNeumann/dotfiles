@@ -53,7 +53,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 
 -- This is used later as the default terminal and editor to run.
@@ -130,7 +130,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" %a %H:%M")
+mytextclock = wibox.widget.textclock("     %H:%M       ")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -216,22 +216,6 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
-        layout   = {
-            spacing_widget = {
-                {
-                    forced_width  = 5,
-                    forced_height = 24,
-                    thickness     = 1,
-                    color         = '#777777',
-                    widget        = wibox.widget.separator
-                },
-                valign = 'center',
-                halign = 'center',
-                widget = wibox.container.place,
-            },
-            spacing = 2,
-            layout  = wibox.layout.fixed.horizontal
-        },
     }
 
     -- Create the wibox
@@ -246,14 +230,14 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        -- s.mytasklist, -- Middle widget
-        mytextclock,
+        s.mytasklist, -- Middle widget
+        -- mytextclock,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             -- wibox.widget.systray(),
-            -- mytextclock,
-            s.mylayoutbox,
+            mytextclock,
+            -- s.mylayoutbox,
         },
     }
 end)
@@ -608,10 +592,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- awful.spawn.with_shell("~/.config/awesome/setup_monitors.sh")
 awful.spawn("autorandr --load desktop")
 
--- display wallpapers on startup
+-- startup apps
 awful.spawn.with_shell("compton")
-awful.spawn.with_shell("nitrogen --restore")
+-- awful.spawn.with_shell("nitrogen --restore")
 
--- add gap sbetween windows
+-- add gaps between windows
 beautiful.useless_gap = 10
 
