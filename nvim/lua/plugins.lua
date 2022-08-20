@@ -13,11 +13,6 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-nvim-lsp'
 
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = { 'kyazdani42/nvim-web-devicons' }
-    }
-
     -- dependency
     use 'nvim-lua/plenary.nvim'
 
@@ -29,9 +24,12 @@ return require('packer').startup(function()
     use 'numToStr/Comment.nvim'
 
     -- GIT:
-   use 'TimUntersberger/neogit'
+    use 'TimUntersberger/neogit'
 
-   -- statusline
-   use 'tjdevries/express_line.nvim'
+    -- statusline
+    use {
+        'tjdevries/express_line.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons' }
+    }
 
 end)
