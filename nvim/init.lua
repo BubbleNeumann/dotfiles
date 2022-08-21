@@ -7,9 +7,8 @@ local keymap = vim.api.nvim_set_keymap
 
 keymap('i', 'jk', '<ESC>', opts)
 keymap('n', 'ff', '<cmd>lua require"telescope.builtin".find_files(require("telescope.themes").get_dropdown( { previewer = false }))<cr>', opts)
-keymap('n', 'fg', '<cmd>Telescope live_grep<cr>', opts)
--- keymap('n', '<C-b>', '<cmd>NvimTreeToggle<cr>', opts)
-
+keymap('n', 'fg', '<cmd>Telescope grep_string<cr>', opts)
+keymap('n', '<C-b>', '<cmd>NvimTreeToggle<cr>', opts)
 
 -- o.termguicolors = true
 vim.opt.mouse = 'a'     
@@ -41,13 +40,29 @@ require('impatient')
 --set colorscheme
 vim.cmd 'lua require("colorbuddy").colorscheme("gruvbuddy")'
 
+-- tree view for projects stucture
+require('nvim-tree').setup({
+    view = {
+        side ='left',
+    },
+    renderer = {
+        icons = {
+            glyphs = {
+                folder = {
+                    arrow_closed = '>',
+                },
+            },
+        },
+    },
+})
+
 --completion
 local cmp = require 'cmp'
 
 cmp.setup {
     mapping = {
-        -- ['<C-d>'] = cmp.mapping.scroll_docs(-1),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(1),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.close(),
         ['<c-space>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
@@ -70,6 +85,9 @@ cmp.setup {
     },
 }
 
+--require('nlua.lsp.nvim').setup()
+--require('lspconfig').setup()
+
 require('telescope').load_extension('fzf')
 
 require('Comment').setup({
@@ -87,8 +105,6 @@ require('Comment').setup({
 require('neogit').setup()
 
 -- statusline
-require("el").reset_windows()
-
 local extensions = require('el.extensions')
 local subscribe = require('el.subscribe')
 local builtin = require('el.builtin')
@@ -97,28 +113,30 @@ local generator = function(_window, buffer)
     local segments = {}
 
     -- mode
-    table.insert(segments, { extensions.mode, " " })
+    table.insert(segments, { extensions.gen_mode { format_string = " %s " }, required = true })
 
-    -- name of the current git branch
+    -- git branch
     table.insert(segments,
     subscribe.buf_autocmd("el_git_branch", "BufEnter", function(window, buffer)
         local branch = extensions.git_branch(window, buffer)
         if branch then
-            return " " .. extensions.git_icon() .. " " .. branch
+            return " " .. "-o- " .. branch
         end
     end
     ))
 
+    -- separator
+    table.insert(segments, { sections.split, required = true } )
+
+    -- file name 
+    table.insert(segments, '%f')
+    
     -- modified flag
     table.insert(segments, { sections.collapse_builtin { { " " }, { builtin.modified_flag } } } )
-    table.insert(segments, { sections.split, required = true } )
-
-    -- show file name 
-    table.insert(segments, '%f')
 
     table.insert(segments, { sections.split, required = true } )
 
-    -- show current line and column
+    -- current line and column
     table.insert(segments, { "  [", builtin.line_with_width(1), ":", builtin.column_with_width(1), "]" })
     table.insert(segments, sections.collapse_builtin { "[", builtin.help_list, builtin.readonly_list, "]" })
     table.insert(segments, builtin.filetype)

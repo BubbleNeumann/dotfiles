@@ -109,10 +109,25 @@ _G.packer_plugins = {
     path = "/home/bubble-neumann/.local/share/nvim/site/pack/packer/start/neogit",
     url = "https://github.com/TimUntersberger/neogit"
   },
+  ["nlua.nvim"] = {
+    loaded = true,
+    path = "/home/bubble-neumann/.local/share/nvim/site/pack/packer/start/nlua.nvim",
+    url = "https://github.com/tjdevries/nlua.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/bubble-neumann/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/home/bubble-neumann/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-web-nonicons"] = {
+    loaded = true,
+    path = "/home/bubble-neumann/.local/share/nvim/site/pack/packer/start/nvim-web-nonicons",
+    url = "https://github.com/yamatsum/nvim-web-nonicons"
   },
   ["packer.nvim"] = {
     loaded = true,
