@@ -1,3 +1,6 @@
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -26,10 +29,16 @@ require('packer').startup(function(use) --{{{
     use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }           -- Snippet Engine and Snippet Expansion
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
     use 'simrat39/rust-tools.nvim'
-    use 'lukas-reineke/indent-blankline.nvim'
-    use { 'windwp/nvim-autopairs', config = function() require("nvim-autopairs").setup {} end }
-    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    use 'lukas-reineke/indent-blankline.nvim'                                       -- Indentation
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'puremourning/vimspector'
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+    -- Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
+    use 'rust-lang/rust-analyzer'
+    use 'ThePrimeagen/harpoon'
 
     if is_bootstrap then
         require('packer').sync()
@@ -44,15 +53,18 @@ end)
 local o = vim.opt
 
 local opts = { noremap = true, silent = true }
+local km = vim.keymap.set
 local keymap = vim.api.nvim_set_keymap
 
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 o.mouse = 'a'
 o.termguicolors = true
 o.foldmethod = 'indent'
+o.updatetime = 50
 
 -- ui
 o.number = true
+o.relativenumber = true
 o.numberwidth = 4
 
 -- cursorline highlighting control
@@ -97,7 +109,7 @@ o.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
 o.linebreak = true
 
 o.formatoptions = o.formatoptions
-  - "a" -- Auto formatting is BAD.
+  + "a" -- Auto formatting is BAD (no).
   - "t" -- Don't auto format my code. I got linters for that.
   + "c" -- In general, I like it when comments respect textwidth
   + "q" -- Allow formatting comments w/ gq
@@ -107,7 +119,7 @@ o.formatoptions = o.formatoptions
   + "j" -- Auto-remove comments if possible.
   - "2" -- I'm not in gradeschool anymore
 
-o.joinspaces = false
+-- o.joinspaces = true
 
 o.undofile = true
 
@@ -131,32 +143,43 @@ vim.cmd [[
         au BufWinLeave * call clearmatches()
     augroup END
 ]]
--- }}}
---[[======================= KEYMAPS =========================]]
+
+--}}} [[======================= KEYMAPS =========================]]
 
 -- {{{
 keymap('i', 'jk', '<ESC>', opts)
-keymap('n', 'ff', '<cmd>lua require"telescope.builtin".find_files(require("telescope.themes").get_dropdown( { previewer = false }))<cr>', opts)
-keymap('n', 'fg', '<cmd>lua require"telescope.builtin".live_grep{ search_dirs={"%:p"} }<cr>', opts) -- search current file
+-- keymap('n', '<Space>f', '<cmd>lua
+-- require"telescope.builtin".find_files(require("telescope.themes").get_dropdown(
+-- { previewer = false }))<cr>', opts)
+keymap('n', '<Space>f', '<cmd>lua require"telescope.builtin".find_files()<cr>', opts)
+keymap('n', '<Space>/', '<cmd>lua require"telescope.builtin".live_grep{ search_dirs={"%:p"} }<cr>', opts) -- search current fileA
 keymap('n', '<C-b>', '<cmd>NvimTreeToggle<cr>', opts)
 
 keymap('n', 'tt', '<cmd>vnew<cr><cmd>term<cr><C-w>ri', opts) -- open terminal emulator
 
-local bufnr = vim.api.nvim_get_current_buf()
-local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+-- local bufnr = vim.api.nvim_get_current_buf()
+-- local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
 -- if ft == "rust" then
     keymap('n', '<space-t>', '<C-w>licargo test<cr><C-\\><C-n>', opts) -- run rust test
     keymap('n', '<space-r>', '<C-w>licargo run<cr><C-\\><C-n>', opts) -- run rust
 -- end
 
-keymap('n', '<space-w>', '<C-w>ww', opts) -- switch panes
--- keymap('n', '', '<C-\\><C-n>', opts) -- quit terminal insert mode
--- <space>gw => grep_string
--- <space>f/ => grep_last_search
+-- keymap('n', '<C-w>', '<C-leader><C-n>', opts)
+keymap('n', 'gw', '<C-w>w', opts) -- switch panes
+keymap('n', '<C-leader>', '<C-leader><C-n>', opts) -- quit terminal insert mode
+-- <space>gw => grep_string <space>f/ => grep_last_search
 keymap('n', 'z', 'za', opts)
-keymap('n', 'tb', '<cmd>TagbarToggle<cr>', opts)
+-- keymap('n', 'tb', '<cmd>TagbarToggle<cr>', opts)
 -- keymap('n', '<C-c>', 'y:new ~/.vimbuffer<CR>VGp:x<CR> \\| :!cat ~/.vimbuffer \\| clip.exe <CR>', opts)
 
+-- harpoon
+-- https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/after/plugin/keymap/harpoon.lua
+keymap('n', '<Space>a', '<cmd>lua require("harpoon.mark").add_file()<cr>', opts)
+keymap('n', '<C-e>', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
+keymap('n', '<Space>h', '<cmd>lua require("harpoon.ui").nav_file(1)<cr>', opts)
+keymap('n', '<Space>t', '<cmd>lua require("harpoon.ui").nav_file(2)<cr>', opts)
+keymap('n', '<Space>n', '<cmd>lua require("harpoon.ui").nav_file(3)<cr>', opts)
+keymap('n', '<Space>s', '<cmd>lua require("harpoon.ui").nav_file(4)<cr>', opts)
 
 
 -- disable arrows
@@ -597,8 +620,8 @@ local opts = {
   dap = {
     adapter = {
       type = "executable",
-      command = "lldb-vscode",
-      name = "rt_lldb",
+      command = "lldb",
+      name = "lldb",
     },
   },
 }
@@ -606,7 +629,7 @@ local opts = {
 require('rust-tools').setup(opts)
 
 --[[======================= LUASNIP =========================]]
-
+--{{{
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local fmt = require("luasnip.extras.fmt").fmt
@@ -641,9 +664,14 @@ luasnip.add_snippets("rust", {
     ),
     luasnip.s("eq", fmt("assert_eq!({}, {});{}", { i(1), i(2), i(0) })),
     luasnip.s("ae", fmt("assert_eq!({}, {});{}", { i(1), i(2), i(0) })),
-    luasnip.s("p", fmt("println!({});", i(0))),
+    luasnip.s("pd", fmt("println!({});", i(0))),
+    luasnip.s("{", fmt([[
+        {{
+            {}
+        }}]], i(0) )),
 })
-
+-- }}}
+-- {{{
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -682,4 +710,5 @@ cmp.setup {
     { name = 'nvim_lsp' },
   },
 }
-
+-- }}}
+--
