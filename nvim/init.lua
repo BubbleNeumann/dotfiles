@@ -39,7 +39,16 @@ require('packer').startup(function(use) --{{{
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
     use 'rust-lang/rust-analyzer'
     use 'ThePrimeagen/harpoon'
-
+    -- todo highlighting
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup ({
+            signs = false
+        })
+        end
+    }
     if is_bootstrap then
         require('packer').sync()
     end
@@ -109,7 +118,7 @@ o.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
 o.linebreak = true
 
 o.formatoptions = o.formatoptions
-  + "a" -- Auto formatting is BAD (no).
+  - "a" -- Auto formatting is BAD
   - "t" -- Don't auto format my code. I got linters for that.
   + "c" -- In general, I like it when comments respect textwidth
   + "q" -- Allow formatting comments w/ gq
@@ -144,6 +153,14 @@ vim.cmd [[
     augroup END
 ]]
 
+-- transparent bg
+vim.cmd [[
+    augroup user_colors
+    autocmd!
+    autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+    augroup END
+]]
+
 --}}} [[======================= KEYMAPS =========================]]
 
 -- {{{
@@ -160,8 +177,8 @@ keymap('n', 'tt', '<cmd>vnew<cr><cmd>term<cr><C-w>ri', opts) -- open terminal em
 -- local bufnr = vim.api.nvim_get_current_buf()
 -- local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
 -- if ft == "rust" then
-    keymap('n', '<space-t>', '<C-w>licargo test<cr><C-\\><C-n>', opts) -- run rust test
-    keymap('n', '<space-r>', '<C-w>licargo run<cr><C-\\><C-n>', opts) -- run rust
+    -- keymap('n', '<space-t>', '<C-w>licargo test<cr><C-\\><C-n>', opts) -- run rust test
+    -- keymap('n', '<space-r>', '<C-w>licargo run<cr><C-\\><C-n>', opts) -- run rust
 -- end
 
 -- keymap('n', '<C-w>', '<C-leader><C-n>', opts)
@@ -181,12 +198,14 @@ keymap('n', '<Space>t', '<cmd>lua require("harpoon.ui").nav_file(2)<cr>', opts)
 keymap('n', '<Space>n', '<cmd>lua require("harpoon.ui").nav_file(3)<cr>', opts)
 keymap('n', '<Space>s', '<cmd>lua require("harpoon.ui").nav_file(4)<cr>', opts)
 
-
 -- disable arrows
-keymap('n', '<Up>', '' ,opts)
-keymap('n', '<Down>', '',opts)
-keymap('n', '<Left>', '',opts)
-keymap('n', '<Right>', '',opts)
+keymap('n', '<Up>', '' , opts)
+keymap('n', '<Down>', '', opts)
+keymap('n', '<Left>', '', opts)
+keymap('n', '<Right>', '', opts)
+
+-- replace
+keymap('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 
 -- }}}
 
@@ -212,6 +231,10 @@ require('nvim-tree').setup({
             },
         },
     },
+})
+
+require("todo-comments").setup ({
+    signs = false
 })
 
 require('Comment').setup()
@@ -390,7 +413,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
 local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua' }
