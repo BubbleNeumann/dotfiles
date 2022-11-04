@@ -89,17 +89,25 @@ export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-alias wg-up='sudo wg-quick up frankfurt'
-alias wg-down='sudo wg-quick down frankfurt'
+alias wgup='sudo wg-quick up frankfurt'
+alias wgdown='sudo wg-quick down frankfurt'
 alias n='nvim .'
 alias notes='cd ~/Dropbox/Obsidian\ vault/ && nvim .'
-alias nvim-config='nvim ~/.config/nvim/init.lua'
-alias main='nvim ~/git/Main/rust'
+alias nvimconfig='nvim ~/.config/nvim/init.lua'
+alias main='nvim ~/git/Main'
 alias uni='nvim ~/git/University-tasks'
 alias rust='nvim ~/git/rust-experiments'
-alias hx-rust='hx ~/git/rust-experiments'
+# alias hx-rust='hx ~/git/rust-experiments'
 
+
+alias updateconfigrepo='
+cp .zshrc ~/git/dotfiles
+cp -r ~/.config/kitty ~/git/dotfiles
+cp -r ~/.config/nvim ~/git/dotfiles'
+
+alias ..='cd ..'
+alias ls='ls -a'
+
+# twitch
 alias acorn='xdg-open https://twitch.tv/acorn1010'
 
-# Lock the screen (when going AFK)
-# alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
