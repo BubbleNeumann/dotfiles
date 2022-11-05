@@ -65,7 +65,7 @@ local opts = { noremap = true, silent = true }
 local km = vim.keymap.set
 local keymap = vim.api.nvim_set_keymap
 
-o.clipboard = "unnamedplus"
+-- o.clipboard = "unnamedplus"
 o.mouse = 'a'
 o.termguicolors = true
 o.foldmethod = 'indent'

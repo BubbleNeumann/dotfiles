@@ -92,11 +92,11 @@ export EDITOR='nvim'
 alias wgup='sudo wg-quick up frankfurt'
 alias wgdown='sudo wg-quick down frankfurt'
 alias n='nvim .'
-alias notes='cd ~/Dropbox/Obsidian\ vault/ && nvim .'
+alias notes='cd ~/Dropbox/Obsidian\ vault/ && n'
 alias nvimconfig='nvim ~/.config/nvim/init.lua'
-alias main='nvim ~/git/Main'
-alias uni='nvim ~/git/University-tasks'
-alias rust='nvim ~/git/rust-experiments'
+alias main='cd ~/git/Main && n'
+# alias uni='nvim ~/git/University-tasks'
+alias rust='cd ~/git/rust-experiments && n'
 # alias hx-rust='hx ~/git/rust-experiments'
 
 
@@ -105,6 +105,7 @@ cp .zshrc ~/git/dotfiles
 cp -r ~/.config/kitty ~/git/dotfiles
 cp -r ~/.config/nvim ~/git/dotfiles'
 
+alias ~='cd ~'
 alias ..='cd ..'
 alias ls='ls -a'
 
