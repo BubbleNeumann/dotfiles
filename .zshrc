@@ -84,26 +84,18 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export EDITOR='nvim'
+#export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 alias wgup='sudo wg-quick up frankfurt'
 alias wgdown='sudo wg-quick down frankfurt'
-alias n='nvim .'
-alias notes='cd ~/Dropbox/Obsidian\ vault/ && n'
-alias nvimconfig='nvim ~/.config/nvim/init.lua'
-alias main='cd ~/git/Main && n'
-# alias uni='nvim ~/git/University-tasks'
-alias rust='cd ~/git/rust-experiments && n'
-# alias hx-rust='hx ~/git/rust-experiments'
-
-
-alias updateconfigrepo='
-cp .zshrc ~/git/dotfiles
-cp -r ~/.config/kitty ~/git/dotfiles
-cp -r ~/.config/nvim ~/git/dotfiles'
+alias nvim='./nvim.appimage'
+alias rust='cd ~ && nvim ~/git/rust-experiments/'
+alias main='cd ~ && nvim ~/git/Main/'
+alias aoc='cd ~ && nvim ~/git/advent-of-code/2021'
+alias game='cd ~ && nvim ~/cthulhu-game/Assets/Scripts/'
 
 alias ~='cd ~'
 alias ..='cd ..'
@@ -111,4 +103,14 @@ alias ls='ls -a'
 
 # twitch
 alias acorn='xdg-open https://twitch.tv/acorn1010'
+alias prime='xdg-open https://twitch.tv/theprimeagen'
 
+# cpp
+alias cpp='clang++ -o out'
+alias run='./out'
+
+# browser bookmarks
+alias cf='xdg-open https://codeforces.com/'
+
+#misc
+alias bg='nitrogen --set-scaled --random ~/git/anime/'
