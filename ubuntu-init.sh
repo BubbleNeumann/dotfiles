@@ -23,8 +23,10 @@ sudo rm -r ~/config_manager
 # Astronvim
 git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 rm -r ~/.config/nvim/
-rm -r ~/nvim/
 cp -r ~/git/dotfiles/astronvim/ ~/.config/nvim
+
+sudo apt-get update && sudo apt-get install curl python-dev python-pip python3-dev python3-pip
+sh -c $(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
 
 # Check that rust is installed... otherwise should run this
 if ! [ -x "$(command -v cargo)" ]; then
@@ -37,11 +39,9 @@ if ! command -v rust_analyzer &> /dev/null ; then
     cargo xtask install --server
 fi
 
-
-sudo apt-get update && sudo apt-get install curl python-dev python-pip python3-dev python3-pip
-sh -c $(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-
 sudo apt install lua5.3
 sudo snap install bitwarden discord spotify
 
 sudo apt autoremove
+
+nitrogen --set-scaled ~/git/anime/crown-close-up.png
