@@ -8,7 +8,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias wgup='sudo wg-quick up frankfurt'
 alias wgdown='sudo wg-quick down frankfurt'
-alias nvim='./nvim.appimage'
+alias nvim='./squashfs-root/usr/bin/nvim'
 alias rust='cd ~ && nvim ~/git/rust-experiments/'
 alias main='cd ~ && nvim ~/git/Main/'
 alias aoc21='cd ~ && nvim ~/git/advent-of-code/2021'
@@ -23,12 +23,13 @@ alias ls='ls -a'
 alias acorn='xdg-open https://twitch.tv/acorn1010'
 alias prime='xdg-open https://twitch.tv/theprimeagen'
 
-# cpp
+# c / cpp
 alias cpp='clang++ -o out'
+alias c='clang -o out'
 alias run='./out'
 
 # browser bookmarks
 alias cf='xdg-open https://codeforces.com/'
 
-# misc
-alias bg='nitrogen --set-scaled --random ~/git/anime/'
+# autosuggestions
+bindkey '^ ' autosuggest-accept
