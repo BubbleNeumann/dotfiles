@@ -3,11 +3,10 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'sumneko_lua',
   'rust_analyzer',
 })
 
-lsp.configure('sumneko_lua', {
+lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {
