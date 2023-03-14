@@ -6,8 +6,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias wgup='sudo wg-quick up frankfurt'
 alias wgdown='sudo wg-quick down frankfurt'
-# alias nvim='./squashfs-root/usr/bin/nvim'
-alias rust='cd ~ && nvim ~/git/rust-experiments/'
 alias main='cd ~ && nvim ~/git/Main/'
 alias aoc21='nvim ~/git/advent-of-code/2021'
 alias aoc22='nvim ~/git/advent-of-code/2022'
@@ -16,7 +14,9 @@ alias conf='nvim ~/.config/nvim/'
 
 alias ~='cd ~'
 alias ..='cd ..'
-alias ls='ls -a'
+alias ls='exa -a'
+alias tree='exa -T'
+alias top='ytop'
 
 # twitch
 alias acorn='xdg-open https://twitch.tv/acorn1010'
