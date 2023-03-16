@@ -4,14 +4,17 @@ ZSH_THEME="robbyrussell"
 plugins=(git zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
+alias vim='nvim'
+
+# vpn
 alias wgup='sudo wg-quick up frankfurt'
 alias wgdown='sudo wg-quick down frankfurt'
-alias main='cd ~ && nvim ~/git/Main/'
-alias aoc21='nvim ~/git/advent-of-code/2021'
-alias aoc22='nvim ~/git/advent-of-code/2022'
-alias uni='nvim ~/git/University-tasks/'
+
+# navigation
+alias main='cd ~/git/Main/ && nvim .'
 alias conf='nvim ~/.config/nvim/'
 
+# system
 alias ~='cd ~'
 alias ..='cd ..'
 alias ls='exa -a'
