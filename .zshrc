@@ -26,9 +26,8 @@ alias acorn='xdg-open https://twitch.tv/acorn1010'
 alias prime='xdg-open https://twitch.tv/theprimeagen'
 
 # c / cpp
-alias cpp='clang++ -o out'
-alias c='clang -o out'
-alias run='./out'
+alias cpp='clang++ -o out && ./out'
+alias c='clang -o out && ./out'
 
 # browser bookmarks
 alias cf='xdg-open https://codeforces.com/'
