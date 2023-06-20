@@ -15,6 +15,7 @@ alias main='cd ~/git/Main/ && nvim .'
 alias conf='nvim ~/.config/nvim/'
 
 # system
+alias upd='sudo apt update -y && sudo apt upgrade -y'
 alias ~='cd ~'
 alias ..='cd ..'
 alias ls='exa -a'
