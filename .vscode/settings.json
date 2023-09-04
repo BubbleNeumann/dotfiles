@@ -1,0 +1,73 @@
+{
+    "editor.minimap.enabled": false,
+    "explorer.confirmDelete": false,
+    "window.menuBarVisibility": "compact",
+    "workbench.preferredLightColorTheme": "Abyss",
+    "editor.suggest.showStatusBar": true,
+    "zenMode.hideActivityBar": false,
+    "editor.inlineSuggest.showToolbar": "always",
+    "git.autofetch": true,
+    "workbench.colorTheme": "Hacker",
+    "editor.fontFamily": "'JetBrains Mono Regular Nerd Font Complete Mono', 'monospace', monospace",
+    "editor.fontLigatures": true,
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+    },
+    "workbench.editor.enablePreview": false,
+    "breadcrumbs.enabled": false,
+    "editor.fontSize": 14.5,
+    "git.confirmSync": false,
+    "editor.lineNumbers": "relative",
+
+    "vim.leader": "<Space>",
+    "vim.neovimUseConfigFile": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        }
+    ],
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+        { "before": ["leader", "w"], "commands": [":w"] },
+
+        // NAVIGATION
+        // switch b/w buffers
+        { "before": ["<S-h>"], "commands": [":bprevious"] },
+        { "before": ["<S-l>"], "commands": [":bnext"] },
+
+        // panes
+        {
+            "before": ["leader", "h"],
+            "commands": ["workbench.action.focusLeftGroup"]
+        },
+        {
+            "before": ["leader", "j"],
+            "commands": ["workbench.action.focusBelowGroup"]
+        },
+        {
+            "before": ["leader", "k"],
+            "commands": ["workbench.action.focusAboveGroup"]
+        },
+        {
+            "before": ["leader", "l"],
+            "commands": ["workbench.action.focusRightGroup"]
+        },
+
+        // indenting
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+        { "before": [">"], "commands": ["editor.action.indentLines"] },
+
+        // filetree
+        { "before": ["<C-b>"], "commands": ["workbench.action.toggleSidebarVisibility"] },
+        
+    ],
+    "vim.visualModeKeyBindings": [
+        // Stay in visual mode while indenting
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+        { "before": [">"], "commands": ["editor.action.indentLines"] },
+        // Move selected lines while staying in visual mode
+        { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+        { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    ],
+}
