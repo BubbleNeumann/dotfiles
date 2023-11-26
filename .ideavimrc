@@ -1,0 +1,11 @@
+source ~/.vimrc
+set scrolloff=5
+set incsearch
+map Q gq
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+imap jk <Esc>
+vmap jk <Esc>
