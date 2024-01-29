@@ -70,4 +70,6 @@
         { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
         { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
     ],
+    "workbench.activityBar.location": "hidden",
+    "workbench.statusBar.visible": false,
 }
