@@ -38,4 +38,7 @@ return require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
+    use 'tjdevries/colorbuddy.vim'
+    use 'tjdevries/gruvbuddy.nvim'
+    use 'ThePrimeagen/harpoon'
 end)
