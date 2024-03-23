@@ -8,6 +8,9 @@ km("n", "<leader>w", '<cmd>w<cr>')
 km("n", "<leader>q", '<cmd>q<cr>')
 km("n", "<leader>c", '<cmd>q<cr>')
 
+km("n", ";h", "<C-w>h")
+km("n", ";l", "<C-w>l")
+
 km("v", "J", ":m '>+1<CR>gv=gv")
 km("v", "K", ":m '<-2<CR>gv=gv")
 
