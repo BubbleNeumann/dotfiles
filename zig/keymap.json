@@ -1,0 +1,22 @@
+[
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "space w": "workspace::Save"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      // put key-bindings here (in addition to above) if you want them to
+      // work when no editor exists
+      // "space f": "file_finder::Toggle"
+    }
+  }
+]
