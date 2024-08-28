@@ -7,6 +7,13 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
+  },
   "telemetry": {
     "metrics": false
   },
@@ -16,12 +23,15 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Kiselevka Dark"
+    "dark": "Gruber Blueberry 🫐"
   },
   "autosave": "on_focus_change",
   "show_whitespaces": "all",
   "relative_line_numbers": true,
   "copy_on_select": true,
+  "inlay_hints": {
+    "enabled": true
+  },
   "languages": {
     "Python": {
       "format_on_save": { "language_server": { "name": "ruff" } },
@@ -29,5 +39,4 @@
       "language_servers": ["pyright", "ruff"]
     }
   }
-}
 
