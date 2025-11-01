@@ -1,0 +1,7 @@
+[tool.ty.src]
+include = [
+    ""
+]
+exclude = [
+    ""
+]
